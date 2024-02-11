@@ -38,12 +38,12 @@ You can also quickly try out this and other packages without having to install u
 Easily check whether an object is a logger using the protocol. The protocol contains 6 classic logger methods:
 
 ```python
-def debug(self, message: str, *args: Any, **kwargs: Any) -> None: pass
-def info(self, message: str, *args: Any, **kwargs: Any) -> None: pass
-def warning(self, message: str, *args: Any, **kwargs: Any) -> None: pass
-def error(self, message: str, *args: Any, **kwargs: Any) -> None: pass
-def exception(self, message: str, *args: Any, **kwargs: Any) -> None: pass
-def critical(self, message: str, *args: Any, **kwargs: Any) -> None: pass
+def debug(self, message: str, *args: Any, **kwargs: Any) -> None
+def info(self, message: str, *args: Any, **kwargs: Any) -> None
+def warning(self, message: str, *args: Any, **kwargs: Any) -> None
+def error(self, message: str, *args: Any, **kwargs: Any) -> None
+def exception(self, message: str, *args: Any, **kwargs: Any) -> None
+def critical(self, message: str, *args: Any, **kwargs: Any) -> None
 ```
 
 The protocol is verifiable in runtime by the [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) function. Let's check this on a regular logger from `logging`:
