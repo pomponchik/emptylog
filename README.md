@@ -82,5 +82,5 @@ The protocol can be used for static checks by any tool you prefer, such as [`myp
 from emptylog import EmptyLogger, LoggerProtocol
 
 def function(logger: LoggerProtocol = EmptyLogger()):
-  logger.info('Kittens have spilled milk, you need to pour more.')
+  logger.error('Kittens have spilled milk, you need to pour more.')
 ```
