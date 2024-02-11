@@ -68,12 +68,19 @@ And of course, you can use the protocol for type hints:
 
 ```python
 def function(logger: LoggerProtocol):
-  logger.info('There was an earthquake in Japan, check the prices of hard drives')
+  logger.info('There was an earthquake in Japan, check the prices of hard drives!')
 ```
 
 The protocol can be used for static checks by any tool you prefer, such as [`mypy`](https://github.com/python/mypy).
 
 
-
-
 ## Empty Logger
+
+`EmptyLogger` is the simplest implementation of the [logger protocol](#universal-logger-protocol). When calling logging methods from an object of this class, nothing happens. You can use it as a stub, for example, when defining functions:
+
+```python
+from emptylog import EmptyLogger, LoggerProtocol
+
+def function(logger: LoggerProtocol = EmptyLogger()):
+  logger.info('Kittens have spilled milk, you need to pour more.')
+```
