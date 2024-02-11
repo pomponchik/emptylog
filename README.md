@@ -12,7 +12,7 @@
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
 
-This package ensures compatibility of any logger implementations with the built-in `logging` library.
+This package ensures compatibility of any logger implementations with the built-in [`logging`](https://docs.python.org/3/library/logging.html) library.
 
 
 ## Table of contents
@@ -34,6 +34,46 @@ You can also quickly try out this and other packages without having to install u
 
 
 ## Universal Logger Protocol
+
+Easily check whether an object is a logger using the protocol. The protocol contains 6 classic logger methods:
+
+```python
+def debug(self, message: str, *args: Any, **kwargs: Any) -> None: pass
+def info(self, message: str, *args: Any, **kwargs: Any) -> None: pass
+def warning(self, message: str, *args: Any, **kwargs: Any) -> None: pass
+def error(self, message: str, *args: Any, **kwargs: Any) -> None: pass
+def exception(self, message: str, *args: Any, **kwargs: Any) -> None: pass
+def critical(self, message: str, *args: Any, **kwargs: Any) -> None: pass
+```
+
+The protocol is verifiable in runtime by the [`isinstance`](https://docs.python.org/3/library/functions.html#isinstance) function. Let's check this on a regular logger from `logging`:
+
+```python
+import logging
+from emptylog import LoggerProtocol
+
+print(isinstance(logging.getLogger('some_name'), LoggerProtocol))  # True
+```
+
+This also works for third-party loggers with the same signature. Let's try it on [loguru](https://github.com/Delgan/loguru):
+
+```python
+from loguru import logger
+from emptylog import LoggerProtocol
+
+print(isinstance(logger, LoggerProtocol))  # True
+```
+
+And of course, you can use the protocol for type hints:
+
+```python
+def function(logger: LoggerProtocol):
+  logger.info('There was an earthquake in Japan, check the prices of hard drives')
+```
+
+The protocol can be used for static checks by any tool you prefer, such as [`mypy`](https://github.com/python/mypy).
+
+
 
 
 ## Empty Logger
