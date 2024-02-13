@@ -8,9 +8,9 @@ except ImportError:  # pragma: no cover
 
 @runtime_checkable
 class LoggerProtocol(Protocol):
-    def debug(self, message: str, *args: Any, **kwargs: Any) -> None: pass
-    def info(self, message: str, *args: Any, **kwargs: Any) -> None: pass
-    def warning(self, message: str, *args: Any, **kwargs: Any) -> None: pass
-    def error(self, message: str, *args: Any, **kwargs: Any) -> None: pass
-    def exception(self, message: str, *args: Any, **kwargs: Any) -> None: pass
-    def critical(self, message: str, *args: Any, **kwargs: Any) -> None: pass
+    def debug(self, message: str, *args: Any, **kwargs: Any) -> None: return None
+    def info(self, message: str, *args: Any, **kwargs: Any) -> None: return None
+    def warning(self, message: str, *args: Any, **kwargs: Any) -> None: return None
+    def error(self, message: str, *args: Any, **kwargs: Any) -> None: return None
+    def exception(self, message: str, *args: Any, **kwargs: Any) -> None: return None
+    def critical(self, message: str, *args: Any, **kwargs: Any) -> None: return None
