@@ -22,7 +22,7 @@ class LoggerAccumulatedData:
 
 
 class MemoryLogger(LoggerProtocol):
-    def __init__(self):
+    def __init__(self) -> None:
         self.data = LoggerAccumulatedData()
 
     def debug(self, message: str, *args: Any, **kwargs: Any) -> None: self.data.debug.append(LoggerCallData(message, args, kwargs))
