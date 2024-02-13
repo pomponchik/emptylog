@@ -20,6 +20,7 @@ This package ensures compatibility of any logger implementations with the built-
 - [**Installing**](#installing)
 - [**Universal Logger Protocol**](#universal-logger-protocol)
 - [**Empty Logger**](#empty-logger)
+- [**Memory Logger**](#memory-logger)
 
 
 ## Installing
@@ -83,4 +84,32 @@ from emptylog import EmptyLogger, LoggerProtocol
 
 def function(logger: LoggerProtocol = EmptyLogger()):
   logger.error('Kittens have spilled milk, you need to pour more.')
+```
+
+
+## Memory Logger
+
+`MemoryLogger` is a special class designed for tests. Its difference from [`EmptyLogger`](#empty-logger) is that it remembers all the times it was called.
+
+The call history is stored in the `data` attribute and sorted by logger method names:
+
+```python
+from emptylog import MemoryLogger
+
+logger = MemoryLogger()
+
+logger.error('Joe Biden forgot his name again.')
+logger.info("Joe, remember, you're Joe.")
+
+print(logger.data)
+# LoggerAccumulatedData(debug=[], info=[LoggerCallData(message="Joe, remember, you're Joe.", args=(), kwargs={})], warning=[], error=[LoggerCallData(message='Joe Biden forgot his name again.', args=(), kwargs={})], exception=[], critical=[])
+
+print(logger.data.info[0].message)
+# Joe, remember, you're Joe.
+print(logger.data.error[0].message)
+# Joe Biden forgot his name again.
+print(logger.data.info[0].args)
+# ()
+print(logger.data.info[0].kwargs)
+# {}
 ```
