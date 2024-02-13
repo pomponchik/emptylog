@@ -99,10 +99,11 @@ from emptylog import MemoryLogger
 logger = MemoryLogger()
 
 logger.error('Joe Biden forgot his name again.')
+logger.error('And again.')
 logger.info("Joe, remember, you're Joe.")
 
 print(logger.data)
-# LoggerAccumulatedData(debug=[], info=[LoggerCallData(message="Joe, remember, you're Joe.", args=(), kwargs={})], warning=[], error=[LoggerCallData(message='Joe Biden forgot his name again.', args=(), kwargs={})], exception=[], critical=[])
+# LoggerAccumulatedData(debug=[], info=[LoggerCallData(message="Joe, remember, you're Joe.", args=(), kwargs={})], warning=[], error=[LoggerCallData(message='Joe Biden forgot his name again.', args=(), kwargs={}), LoggerCallData(message='And again.', args=(), kwargs={})], exception=[], critical=[])
 
 print(logger.data.info[0].message)
 # Joe, remember, you're Joe.
