@@ -21,7 +21,7 @@ def test_search_callable_attributes():
             method = getattr(logger, name)
 
             assert callable(method)
-            
+
             method('kek')
             method('kek %s', 'lol')
             method('kek %s', 'lol', extra={'lol': 'kek'})
