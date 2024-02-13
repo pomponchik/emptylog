@@ -4,12 +4,14 @@ from typing import List, Tuple, Dict, Any
 from emptylog.protocol import LoggerProtocol
 
 
+@dataclass
 class LoggerCallData:
     message: str
     args: Tuple[Any, ...]
     kwargs: Dict[str, Any]
 
 
+@dataclass
 class LoggerAccumulatedData:
     debug: List[LoggerCallData] = field(default_factory=list)
     info: List[LoggerCallData] = field(default_factory=list)
