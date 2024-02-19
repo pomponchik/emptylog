@@ -2,23 +2,8 @@ from dataclasses import dataclass, field
 from typing import List, Tuple, Dict, Any
 
 from emptylog.protocol import LoggerProtocol
-
-
-@dataclass
-class LoggerCallData:
-    message: str
-    args: Tuple[Any, ...]
-    kwargs: Dict[str, Any]
-
-
-@dataclass
-class LoggerAccumulatedData:
-    debug: List[LoggerCallData] = field(default_factory=list)
-    info: List[LoggerCallData] = field(default_factory=list)
-    warning: List[LoggerCallData] = field(default_factory=list)
-    error: List[LoggerCallData] = field(default_factory=list)
-    exception: List[LoggerCallData] = field(default_factory=list)
-    critical: List[LoggerCallData] = field(default_factory=list)
+from emptylog.call_data import LoggerCallData
+from emptylog.accumulated_data import LoggerAccumulatedData
 
 
 class MemoryLogger(LoggerProtocol):
