@@ -1,5 +1,4 @@
-from dataclasses import dataclass, field
-from typing import List, Tuple, Dict, Any
+from typing import Any
 
 from emptylog.protocol import LoggerProtocol
 from emptylog.call_data import LoggerCallData
