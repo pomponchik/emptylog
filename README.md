@@ -69,7 +69,7 @@ And of course, you can use the protocol for type hints:
 
 ```python
 def function(logger: LoggerProtocol):
-  logger.info('There was an earthquake in Japan, check the prices of hard drives!')
+    logger.info('There was an earthquake in Japan, check the prices of hard drives!')
 ```
 
 The protocol can be used for static checks by any tool you prefer, such as [`mypy`](https://github.com/python/mypy).
@@ -83,7 +83,7 @@ The protocol can be used for static checks by any tool you prefer, such as [`myp
 from emptylog import EmptyLogger, LoggerProtocol
 
 def function(logger: LoggerProtocol = EmptyLogger()):
-  logger.error('Kittens have spilled milk, you need to pour more.')
+    logger.error('Kittens have spilled milk, you need to pour more.')
 ```
 
 
@@ -113,4 +113,19 @@ print(logger.data.info[0].args)
 # ()
 print(logger.data.info[0].kwargs)
 # {}
+```
+
+You can find out the total number of logs saved by `MemoryLogger` by applying the [`len()`](https://docs.python.org/3/library/functions.html#len) function to the `data` attribute:
+
+```python
+logger = MemoryLogger()
+
+logger.warning("Are you ready, kids?")
+logger.info("Aye, aye, Captain!")
+logger.error("I can't hear you!")
+logger.info("Aye, aye, Captain!")
+logger.debug("Oh!")
+
+print(len(logger.data))
+# 5
 ```
