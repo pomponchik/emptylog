@@ -31,6 +31,7 @@ classifiers = [
   'Topic :: System :: Archiving :: Packaging',
   'Intended Audience :: System Administrators',
   'Intended Audience :: Developers',
+  'Typing :: Typed',
 ]
 
 [tool.setuptools.package-data]
