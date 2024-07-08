@@ -30,6 +30,8 @@ def test_printing_logger_is_logger():
     ),
 )
 def test_check_simple_output(method, result_tail):
+    remove_suffix = lambda input_string, suffix: input_string[:-len(suffix)] if suffix and input_string.endswith(suffix) else input_string
+
     buffer = io.StringIO()
     with redirect_stdout(buffer):
         method('kek')
@@ -38,7 +40,7 @@ def test_check_simple_output(method, result_tail):
 
     assert printed.endswith(result_tail + '\n')
 
-    time_stamp = printed.removesuffix(result_tail + '\n') # expected format: 2024-07-08 19:09:48.226667
+    time_stamp = remove_suffix(printed, result_tail + '\n') # expected format: 2024-07-08 19:09:48.226667
 
     assert len(time_stamp.split()) == 2
 
