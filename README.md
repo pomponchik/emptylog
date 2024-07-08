@@ -21,6 +21,7 @@ This package ensures compatibility of any logger implementations with the built-
 - [**Universal Logger Protocol**](#universal-logger-protocol)
 - [**Empty Logger**](#empty-logger)
 - [**Memory Logger**](#memory-logger)
+- [**Printing Logger**](#printing-logger)
 
 
 ## Installing
@@ -53,7 +54,8 @@ The protocol is verifiable in runtime by the [`isinstance`](https://docs.python.
 import logging
 from emptylog import LoggerProtocol
 
-print(isinstance(logging.getLogger('some_name'), LoggerProtocol))  # True
+print(isinstance(logging.getLogger('some_name'), LoggerProtocol))
+#> True
 ```
 
 This also works for third-party loggers with the same signature. Let's try it on [loguru](https://github.com/Delgan/loguru):
@@ -62,7 +64,8 @@ This also works for third-party loggers with the same signature. Let's try it on
 from loguru import logger
 from emptylog import LoggerProtocol
 
-print(isinstance(logger, LoggerProtocol))  # True
+print(isinstance(logger, LoggerProtocol))
+#> True
 ```
 
 And of course, you can use the protocol for type hints:
@@ -103,16 +106,16 @@ logger.error('And again.')
 logger.info("Joe, remember, you're Joe.")
 
 print(logger.data)
-# LoggerAccumulatedData(debug=[], info=[LoggerCallData(message="Joe, remember, you're Joe.", args=(), kwargs={})], warning=[], error=[LoggerCallData(message='Joe Biden forgot his name again.', args=(), kwargs={}), LoggerCallData(message='And again.', args=(), kwargs={})], exception=[], critical=[])
+#> LoggerAccumulatedData(debug=[], info=[LoggerCallData(message="Joe, remember, you're Joe.", args=(), kwargs={})], warning=[], error=[LoggerCallData(message='Joe Biden forgot his name again.', args=(), kwargs={}), LoggerCallData(message='And again.', args=(), kwargs={})], exception=[], critical=[])
 
 print(logger.data.info[0].message)
-# Joe, remember, you're Joe.
+#> Joe, remember, you're Joe.
 print(logger.data.error[0].message)
-# Joe Biden forgot his name again.
+#> Joe Biden forgot his name again.
 print(logger.data.info[0].args)
-# ()
+#> ()
 print(logger.data.info[0].kwargs)
-# {}
+#> {}
 ```
 
 You can find out the total number of logs saved by `MemoryLogger` by applying the [`len()`](https://docs.python.org/3/library/functions.html#len) function to the `data` attribute:
@@ -127,5 +130,8 @@ logger.info("Aye, aye, Captain!")
 logger.debug("Oh!")
 
 print(len(logger.data))
-# 5
+#> 5
 ```
+
+
+## Printing Logger
