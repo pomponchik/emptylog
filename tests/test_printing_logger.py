@@ -30,6 +30,7 @@ def test_printing_logger_is_logger():
     ),
 )
 def test_check_simple_output(method, result_tail):
+    # this code is adapted from there: https://stackoverflow.com/a/66683635
     remove_suffix = lambda input_string, suffix: input_string[:-len(suffix)] if suffix and input_string.endswith(suffix) else input_string
 
     buffer = io.StringIO()
