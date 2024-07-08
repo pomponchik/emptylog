@@ -135,3 +135,22 @@ print(len(logger.data))
 
 
 ## Printing Logger
+
+`PrintingLogger` is the simplest logger designed for printing to the console. You cannot control the format or direction of the output, or send logs to a special microservice that will forward them to a long-term storage with indexing support. No, here you can only get basic output to the console and nothing else. Here is an example:
+
+```python
+from emptylog import PrintingLogger
+
+logger = PrintingLogger()
+
+logger.debug("I ate a strange pill found under my grandfather's pillow.")
+#> 2024-07-08 20:52:31.342048 | DEBUG     | I ate a strange pill found under my grandfather's pillow.
+logger.info("Everything seems to be fine.")
+#> 2024-07-08 20:52:31.342073 | INFO      | Everything seems to be fine.
+logger.error("My grandfather beat me up. He seems to be breathing fire.")
+#> 2024-07-08 20:52:31.342079 | ERROR     | My grandfather beat me up. He seems to be breathing fire.
+```
+
+As you can see, 3 things are output to the console: the exact time, the logging level, and the message. The message does not support extrapolation. Also, you won't see any additional arguments here that could have been passed to the method.
+
+Do not use this logger in production. It is intended solely for the purposes of debugging or testing of software.
