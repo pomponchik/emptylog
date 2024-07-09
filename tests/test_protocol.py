@@ -6,7 +6,7 @@ from emptylog import LoggerProtocol, EmptyLogger, LoggersGroup, MemoryLogger, Pr
 def test_positive_examples_of_runtime_check():
     assert isinstance(logging, LoggerProtocol)
     assert isinstance(logging.getLogger('kek'), LoggerProtocol)
-    assert isinstance(logging.getLogger('kek'), LoggerProtocol)
+    assert isinstance(logging.getLogger('lol'), LoggerProtocol)
     assert isinstance(EmptyLogger(), LoggerProtocol)
     assert isinstance(LoggersGroup(), LoggerProtocol)
     assert isinstance(MemoryLogger(), LoggerProtocol)
