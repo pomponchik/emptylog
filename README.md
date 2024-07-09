@@ -21,6 +21,7 @@ This package ensures compatibility of any logger implementations with the built-
 - [**Universal Logger Protocol**](#universal-logger-protocol)
 - [**Empty Logger**](#empty-logger)
 - [**Memory Logger**](#memory-logger)
+- [**Printing Logger**](#printing-logger)
 
 
 ## Installing
@@ -53,7 +54,8 @@ The protocol is verifiable in runtime by the [`isinstance`](https://docs.python.
 import logging
 from emptylog import LoggerProtocol
 
-print(isinstance(logging.getLogger('some_name'), LoggerProtocol))  # True
+print(isinstance(logging.getLogger('some_name'), LoggerProtocol))
+#> True
 ```
 
 This also works for third-party loggers with the same signature. Let's try it on [loguru](https://github.com/Delgan/loguru):
@@ -62,7 +64,8 @@ This also works for third-party loggers with the same signature. Let's try it on
 from loguru import logger
 from emptylog import LoggerProtocol
 
-print(isinstance(logger, LoggerProtocol))  # True
+print(isinstance(logger, LoggerProtocol))
+#> True
 ```
 
 And of course, you can use the protocol for type hints:
@@ -103,16 +106,16 @@ logger.error('And again.')
 logger.info("Joe, remember, you're Joe.")
 
 print(logger.data)
-# LoggerAccumulatedData(debug=[], info=[LoggerCallData(message="Joe, remember, you're Joe.", args=(), kwargs={})], warning=[], error=[LoggerCallData(message='Joe Biden forgot his name again.', args=(), kwargs={}), LoggerCallData(message='And again.', args=(), kwargs={})], exception=[], critical=[])
+#> LoggerAccumulatedData(debug=[], info=[LoggerCallData(message="Joe, remember, you're Joe.", args=(), kwargs={})], warning=[], error=[LoggerCallData(message='Joe Biden forgot his name again.', args=(), kwargs={}), LoggerCallData(message='And again.', args=(), kwargs={})], exception=[], critical=[])
 
 print(logger.data.info[0].message)
-# Joe, remember, you're Joe.
+#> Joe, remember, you're Joe.
 print(logger.data.error[0].message)
-# Joe Biden forgot his name again.
+#> Joe Biden forgot his name again.
 print(logger.data.info[0].args)
-# ()
+#> ()
 print(logger.data.info[0].kwargs)
-# {}
+#> {}
 ```
 
 You can find out the total number of logs saved by `MemoryLogger` by applying the [`len()`](https://docs.python.org/3/library/functions.html#len) function to the `data` attribute:
@@ -127,5 +130,42 @@ logger.info("Aye, aye, Captain!")
 logger.debug("Oh!")
 
 print(len(logger.data))
-# 5
+#> 5
+```
+
+
+## Printing Logger
+
+`PrintingLogger` is the simplest logger designed for printing to the console. You cannot control the format or direction of the output, or send logs to a special microservice that will forward them to a long-term storage with indexing support. No, here you can only get basic output to the console and nothing else. Here is an example:
+
+```python
+from emptylog import PrintingLogger
+
+logger = PrintingLogger()
+
+logger.debug("I ate a strange pill found under my grandfather's pillow.")
+#> 2024-07-08 20:52:31.342048 | DEBUG     | I ate a strange pill found under my grandfather's pillow.
+logger.info("Everything seems to be fine.")
+#> 2024-07-08 20:52:31.342073 | INFO      | Everything seems to be fine.
+logger.error("My grandfather beat me up. He seems to be breathing fire.")
+#> 2024-07-08 20:52:31.342079 | ERROR     | My grandfather beat me up. He seems to be breathing fire.
+```
+
+As you can see, 3 things are output to the console: the exact time, the logging level, and the message. The message does not support extrapolation. Also, you won't see any additional arguments here that could have been passed to the method.
+
+> ⚠️ Do not use this logger in production. It is intended solely for the purposes of debugging or testing of software.
+
+If necessary, you can change the behavior of the logger by passing it a callback, which is called for the finished message to print it to the console. Instead of the original function (the usual [`print`](https://docs.python.org/3/library/functions.html#print) function is used under the hood), you can pass something more interesting (the code example uses the [`termcolor`](https://github.com/termcolor/termcolor) library):
+
+```python
+from termcolor import colored
+
+def callback(string: str) -> None:
+    print(colored(string, 'green'), end='')
+
+logger = PrintingLogger(printing_callback=callback)
+
+logger.info('Hello, the colored world!')
+#> 2024-07-09 11:20:03.693837 | INFO      | Hello, the colored world!
+# You can't see it here, but believe me, if you repeat the code at home, the output in the console will be green!
 ```

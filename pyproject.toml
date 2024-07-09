@@ -4,7 +4,7 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = 'emptylog'
-version = '0.0.4'
+version = '0.0.5'
 authors = [
   { name='Evgeniy Blinov', email='zheni-b@yandex.ru' },
 ]
@@ -31,6 +31,7 @@ classifiers = [
   'Topic :: System :: Archiving :: Packaging',
   'Intended Audience :: System Administrators',
   'Intended Audience :: Developers',
+  'Typing :: Typed',
 ]
 
 [tool.setuptools.package-data]
