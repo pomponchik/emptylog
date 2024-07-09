@@ -17,4 +17,4 @@ class LoggerProtocol(Protocol):
 
 
 class LoggerMethodProtocol(Protocol):
-    def __call__(self, message: str, *args: Any, **kwargs: Any) -> None: return None
+    def __call__(self, message: str, *args: Any, **kwargs: Any) -> None: return None  # pragma: no cover
