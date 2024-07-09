@@ -1,6 +1,6 @@
 from abc import ABC
 
-from emptylog.protocol import LoggerProtocol
+from emptylog.protocols import LoggerProtocol
 
 
 class AbstractLogger(LoggerProtocol, ABC):

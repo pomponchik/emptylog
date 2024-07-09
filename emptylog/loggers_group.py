@@ -1,7 +1,7 @@
 from typing import Tuple, Callable, Any
 from threading import Lock
 
-from emptylog.protocol import LoggerProtocol
+from emptylog.protocols import LoggerProtocol
 from emptylog.abstract_logger import AbstractLogger
 
 
