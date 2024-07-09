@@ -154,3 +154,18 @@ logger.error("My grandfather beat me up. He seems to be breathing fire.")
 As you can see, 3 things are output to the console: the exact time, the logging level, and the message. The message does not support extrapolation. Also, you won't see any additional arguments here that could have been passed to the method.
 
 > ⚠️ Do not use this logger in production. It is intended solely for the purposes of debugging or testing of software.
+
+If necessary, you can change the behavior of the logger by passing it a callback, which is called for the finished message to print it to the console. Instead of the original function (the usual [`print`](https://docs.python.org/3/library/functions.html#print) function is used under the hood), you can pass something more interesting (the code example uses the [`termcolor`](https://github.com/termcolor/termcolor) library):
+
+```python
+from termcolor import colored
+
+def callback(string: str) -> None:
+    print(colored(string, 'green'), end='')
+
+logger = PrintingLogger(printing_callback=callback)
+
+logger.info('Hello, the colored world!')
+#> 2024-07-09 11:20:03.693837 | INFO      | Hello, the colored world!
+# You can't see it here, but believe me, if you repeat the code at home, the output in the console will be green!
+```
