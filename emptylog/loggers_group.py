@@ -7,7 +7,7 @@ from emptylog.protocol import LoggerProtocol
 class LoggersGroup(LoggerProtocol):
     def __init__(self, *loggers: LoggerProtocol) -> None:
         self.loggers: Tuple[LoggerProtocol, ...] = loggers
-        self.lock = Lock()
+        self.lock: Lock = Lock()
 
     def debug(self, message: str, *args: Any, **kwargs: Any) -> None:
         self.run_loggers(lambda x: x.debug, message, *args, **kwargs)
