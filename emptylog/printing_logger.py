@@ -1,14 +1,15 @@
 from typing import Callable, Any
 from datetime import datetime
+from functools import partial
 
 from emptylog.protocol import LoggerProtocol
 
 
 class PrintingLogger(LoggerProtocol):
-    def __init__(self, printing_callback: Callable[[Any], Any] = print, separator: str = '|') -> None:
+    def __init__(self, printing_callback: Callable[[Any], Any] = partial(print, end=''), separator: str = '|') -> None:
         self.callback = printing_callback
         self.separator = separator
-        self.template = '{time} {separator} {level} {separator} {message}'
+        self.template = '{time} {separator} {level} {separator} {message}\n'
 
     def debug(self, message: str, *args: Any, **kwargs: Any) -> None:
         self.callback(self.create_line('DEBUG', message))
