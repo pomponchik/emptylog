@@ -1,11 +1,11 @@
 from typing import Any
 
-from emptylog.protocol import LoggerProtocol
+from emptylog.abstract_logger import AbstractLogger
 from emptylog.call_data import LoggerCallData
 from emptylog.accumulated_data import LoggerAccumulatedData
 
 
-class MemoryLogger(LoggerProtocol):
+class MemoryLogger(AbstractLogger):
     def __init__(self) -> None:
         self.data = LoggerAccumulatedData()
 

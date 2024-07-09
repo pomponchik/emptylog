@@ -2,9 +2,10 @@ from typing import Tuple, Callable, Any
 from threading import Lock
 
 from emptylog.protocol import LoggerProtocol
+from emptylog.abstract_logger import AbstractLogger
 
 
-class LoggersGroup(LoggerProtocol):
+class LoggersGroup(AbstractLogger):
     def __init__(self, *loggers: LoggerProtocol) -> None:
         self.loggers: Tuple[LoggerProtocol, ...] = loggers
         self.lock: Lock = Lock()
