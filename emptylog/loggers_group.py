@@ -1,7 +1,7 @@
 from typing import Tuple, Callable, Any
 from threading import Lock
 
-from emptylog.protocols import LoggerProtocol
+from emptylog.protocols import LoggerProtocol, LoggerMethodProtocol
 from emptylog.abstract_logger import AbstractLogger
 
 
@@ -28,7 +28,7 @@ class LoggersGroup(AbstractLogger):
     def critical(self, message: str, *args: Any, **kwargs: Any) -> None:
         self.run_loggers(lambda x: x.critical, message, *args, **kwargs)
 
-    def run_loggers(self, get_method: Callable[[LoggerProtocol], Callable[[str, ...], None]], message: str, *args: Any, **kwargs: Any) -> None:
+    def run_loggers(self, get_method: Callable[[LoggerProtocol], LoggerMethodProtocol], message: str, *args: Any, **kwargs: Any) -> None:
         with self.lock:
             for logger in self.loggers:
                 method = get_method(logger)
