@@ -26,12 +26,17 @@ classifiers = [
   'Programming Language :: Python :: 3.12',
   'License :: OSI Approved :: MIT License',
   'Topic :: Software Development :: Libraries',
-  'Topic :: Software Development :: Interpreters',
-  'Topic :: Utilities',
-  'Topic :: System :: Archiving :: Packaging',
-  'Intended Audience :: System Administrators',
+  'Topic :: Software Development :: Testing',
+  'Topic :: Software Development :: Testing :: Mocking',
+  'Topic :: Software Development :: Testing :: Unit',
+  'Topic :: System :: Logging',
   'Intended Audience :: Developers',
   'Typing :: Typed',
+]
+keywords = [
+    'logging',
+    'protocols',
+    'loggers mocks',
 ]
 
 [tool.setuptools.package-data]
