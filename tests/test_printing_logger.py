@@ -108,3 +108,30 @@ def test_forward_output(get_method, result_tail):
     assert len(time.split('.')) == 2
     assert re.match(r'[\d]{2}:[\d]{2}:[\d]{2}', time_before_dot) is not None
     assert time_after_dot.isdigit()
+
+
+@pytest.mark.parametrize(
+    ['method', 'result_tail'],
+    (
+        (PrintingLogger().debug, ' | DEBUG     | kek'),
+        (PrintingLogger().info, ' | INFO      | kek'),
+        (PrintingLogger().warning, ' | WARNING   | kek'),
+        (PrintingLogger().error, ' | ERROR     | kek'),
+        (PrintingLogger().exception, ' | EXCEPTION | kek'),
+        (PrintingLogger().critical, ' | CRITICAL  | kek'),
+    ),
+)
+def test_multiple_lines(method, result_tail):
+    number_of_iterations = 10
+    lines = []
+
+    for number in range(number_of_iterations):
+        buffer = io.StringIO()
+        with redirect_stdout(buffer):
+            method('kek')
+
+        lines.append(buffer.getvalue())
+
+    assert len(lines) == number_of_iterations
+
+    assert all([x.endswith(result_tail + '\n') for x in lines])
