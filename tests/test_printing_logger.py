@@ -56,3 +56,55 @@ def test_check_simple_output(method, result_tail):
     assert len(time.split('.')) == 2
     assert re.match(r'[\d]{2}:[\d]{2}:[\d]{2}', time_before_dot) is not None
     assert time_after_dot.isdigit()
+
+
+@pytest.mark.parametrize(
+    ['get_method', 'result_tail'],
+    (
+        (lambda x: x.debug, ' | DEBUG     | kek'),
+        (lambda x: x.info, ' | INFO      | kek'),
+        (lambda x: x.warning, ' | WARNING   | kek'),
+        (lambda x: x.error, ' | ERROR     | kek'),
+        (lambda x: x.exception, ' | EXCEPTION | kek'),
+        (lambda x: x.critical, ' | CRITICAL  | kek'),
+    ),
+)
+def test_forward_output(get_method, result_tail):
+    # this code is adapted from there: https://stackoverflow.com/a/66683635
+    remove_suffix = lambda input_string, suffix: input_string[:-len(suffix)] if suffix and input_string.endswith(suffix) else input_string
+
+    counter = 0
+    last_line = ''
+
+    def callback(line):
+        nonlocal counter
+        nonlocal last_line
+        counter += 1
+        last_line = line
+
+    logger = PrintingLogger(printing_callback=callback)
+    method = get_method(logger)
+
+    buffer = io.StringIO()
+    with redirect_stdout(buffer):
+        method('kek')
+
+    assert buffer.getvalue() == ''
+
+    assert last_line.endswith(result_tail + '\n')
+
+    time_stamp = remove_suffix(last_line, result_tail + '\n') # expected format: 2024-07-08 19:09:48.226667
+
+    assert len(time_stamp.split()) == 2
+
+    date = time_stamp.split()[0]
+    time = time_stamp.split()[1]
+
+    assert re.match(r'[\d]{4}-[\d]{2}-[\d]{2}', date) is not None
+
+    time_before_dot = time.split('.')[0]
+    time_after_dot = time.split('.')[1]
+
+    assert len(time.split('.')) == 2
+    assert re.match(r'[\d]{2}:[\d]{2}:[\d]{2}', time_before_dot) is not None
+    assert time_after_dot.isdigit()
