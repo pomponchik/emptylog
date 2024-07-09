@@ -4,7 +4,7 @@ from emptylog.protocols import LoggerProtocol
 
 
 class AbstractLogger(LoggerProtocol, ABC):
-    def __add__(self, other: LoggerProtocol) -> 'LoggersGroup':  # type: ignore[name-defined] # noqa: FF821
+    def __add__(self, other: LoggerProtocol) -> 'LoggersGroup':  # type: ignore[name-defined] # noqa: F821
         if not isinstance(other, LoggerProtocol):
             raise NotImplementedError('The addition operation is defined only for loggers.')
 
@@ -12,7 +12,7 @@ class AbstractLogger(LoggerProtocol, ABC):
 
         return LoggersGroup(self, other)
 
-    def __radd__(self, other: LoggerProtocol) -> 'LoggersGroup':  # type: ignore[name-defined] # noqa: FF821
+    def __radd__(self, other: LoggerProtocol) -> 'LoggersGroup':  # type: ignore[name-defined] # noqa: F821
         if not isinstance(other, LoggerProtocol):
             raise NotImplementedError('The addition operation is defined only for loggers.')
 
