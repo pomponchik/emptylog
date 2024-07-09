@@ -153,4 +153,4 @@ logger.error("My grandfather beat me up. He seems to be breathing fire.")
 
 As you can see, 3 things are output to the console: the exact time, the logging level, and the message. The message does not support extrapolation. Also, you won't see any additional arguments here that could have been passed to the method.
 
-Do not use this logger in production. It is intended solely for the purposes of debugging or testing of software.
+> ⚠️ Do not use this logger in production. It is intended solely for the purposes of debugging or testing of software.
