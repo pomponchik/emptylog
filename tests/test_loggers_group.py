@@ -34,3 +34,54 @@ def test_repr_loggers_group():
     assert repr(LoggersGroup(MemoryLogger())) == 'LoggersGroup(MemoryLogger())'
     assert repr(LoggersGroup(MemoryLogger(), MemoryLogger())) == 'LoggersGroup(MemoryLogger(), MemoryLogger())'
     assert repr(LoggersGroup(MemoryLogger(), MemoryLogger(), MemoryLogger())) == 'LoggersGroup(MemoryLogger(), MemoryLogger(), MemoryLogger())'
+
+
+def test_empty_group_plus_empty_group():
+    assert type(LoggersGroup() + LoggersGroup()) is LoggersGroup
+    assert (LoggersGroup() + LoggersGroup()).loggers == ()
+
+
+def test_not_empty_group_plus_empty_group():
+    first_internal_logger = MemoryLogger()
+    second_internal_logger = MemoryLogger()
+
+    assert type(LoggersGroup(first_internal_logger) + LoggersGroup()) is LoggersGroup
+    assert type(LoggersGroup(first_internal_logger, second_internal_logger) + LoggersGroup()) is LoggersGroup
+
+    assert len((LoggersGroup(first_internal_logger) + LoggersGroup()).loggers) == 1
+    assert len((LoggersGroup(first_internal_logger, second_internal_logger) + LoggersGroup()).loggers) == 2
+
+    assert (LoggersGroup(first_internal_logger) + LoggersGroup()).loggers[0] is first_internal_logger
+    assert (LoggersGroup(first_internal_logger, second_internal_logger) + LoggersGroup()).loggers[0] is first_internal_logger
+    assert (LoggersGroup(first_internal_logger, second_internal_logger) + LoggersGroup()).loggers[1] is second_internal_logger
+
+
+def test_empty_group_plus_not_empty_group():
+    first_internal_logger = MemoryLogger()
+    second_internal_logger = MemoryLogger()
+
+    assert type(LoggersGroup() + LoggersGroup(first_internal_logger)) is LoggersGroup
+    assert type(LoggersGroup() + LoggersGroup(first_internal_logger, second_internal_logger)) is LoggersGroup
+
+    assert len((LoggersGroup() + LoggersGroup(first_internal_logger)).loggers) == 1
+    assert len((LoggersGroup() + LoggersGroup(first_internal_logger, second_internal_logger)).loggers) == 2
+
+    assert (LoggersGroup() + LoggersGroup(first_internal_logger)).loggers[0] is first_internal_logger
+    assert (LoggersGroup() + LoggersGroup(first_internal_logger, second_internal_logger)).loggers[0] is first_internal_logger
+    assert (LoggersGroup() + LoggersGroup(first_internal_logger, second_internal_logger)).loggers[1] is second_internal_logger
+
+
+def test_empty_group_plus_another_logger():
+    another_logger = MemoryLogger()
+
+    assert type(LoggersGroup() + another_logger) is LoggersGroup
+    assert len((LoggersGroup() + another_logger).loggers) == 1
+    assert (LoggersGroup() + another_logger).loggers[0] is another_logger
+
+
+def test_another_logger_plus_empty_group():
+    another_logger = MemoryLogger()
+
+    assert type(another_logger + LoggersGroup()) is LoggersGroup
+    assert len((another_logger + LoggersGroup()).loggers) == 1
+    assert (another_logger + LoggersGroup()).loggers[0] is another_logger
