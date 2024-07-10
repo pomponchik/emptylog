@@ -26,3 +26,11 @@ def test_run_group_of_memory_loggers(get_method):
         assert get_method(internal_logger.data)[0].message == 'lol'
         assert get_method(internal_logger.data)[0].args == ('kek',)
         assert get_method(internal_logger.data)[0].kwargs == {'cheburek': 'pek'}
+
+
+def test_repr_loggers_group():
+    assert repr(LoggersGroup()) == 'LoggersGroup()'
+    assert repr(LoggersGroup(LoggersGroup())) == 'LoggersGroup(LoggersGroup())'
+    assert repr(LoggersGroup(MemoryLogger())) == 'LoggersGroup(MemoryLogger())'
+    assert repr(LoggersGroup(MemoryLogger(), MemoryLogger())) == 'LoggersGroup(MemoryLogger(), MemoryLogger())'
+    assert repr(LoggersGroup(MemoryLogger(), MemoryLogger(), MemoryLogger())) == 'LoggersGroup(MemoryLogger(), MemoryLogger(), MemoryLogger())'

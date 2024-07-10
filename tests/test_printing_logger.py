@@ -135,3 +135,7 @@ def test_multiple_lines(method, result_tail):
     assert len(lines) == number_of_iterations
 
     assert all([x.endswith(result_tail + '\n') for x in lines])
+
+
+def test_repr_printing_logger():
+    assert repr(PrintingLogger()) == 'PrintingLogger()'

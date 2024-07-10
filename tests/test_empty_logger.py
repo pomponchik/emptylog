@@ -25,3 +25,7 @@ def test_search_callable_attributes():
             method('kek')
             method('kek %s', 'lol')
             method('kek %s', 'lol', extra={'lol': 'kek'})
+
+
+def test_repr_empty_logger():
+    assert repr(EmptyLogger()) == 'EmptyLogger()'

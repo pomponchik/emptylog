@@ -46,3 +46,7 @@ def test_memory_logger_is_working():
     assert logger.data.error[0] == LoggerCallData(message='kek_error', args=('lol', 'cheburek', 'error'), kwargs={'pek': 'mek', 'kekokek': 'error'})
     assert logger.data.exception[0] == LoggerCallData(message='kek_exception', args=('lol', 'cheburek', 'exception'), kwargs={'pek': 'mek', 'kekokek': 'exception'})
     assert logger.data.critical[0] == LoggerCallData(message='kek_critical', args=('lol', 'cheburek', 'critical'), kwargs={'pek': 'mek', 'kekokek': 'critical'})
+
+
+def test_repr_memory_logger():
+    assert repr(MemoryLogger()) == 'MemoryLogger()'

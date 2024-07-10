@@ -1,6 +1,8 @@
 from typing import Tuple, Callable, Any
 from threading import Lock
 
+from printo import descript_data_object
+
 from emptylog.protocols import LoggerProtocol, LoggerMethodProtocol
 from emptylog.abstract_logger import AbstractLogger
 
@@ -9,6 +11,9 @@ class LoggersGroup(AbstractLogger):
     def __init__(self, *loggers: LoggerProtocol) -> None:
         self.loggers: Tuple[LoggerProtocol, ...] = loggers
         self.lock: Lock = Lock()
+
+    def __repr__(self) -> str:
+        return descript_data_object(type(self).__name__, self.loggers, {}, serializator=repr)
 
     def debug(self, message: str, *args: Any, **kwargs: Any) -> None:
         self.run_loggers(lambda x: x.debug, message, *args, **kwargs)
