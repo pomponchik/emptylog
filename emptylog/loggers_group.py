@@ -1,3 +1,4 @@
+import sys
 from typing import Tuple, Callable, Any
 from threading import Lock
 from collections.abc import Iterator
@@ -7,6 +8,11 @@ from printo import descript_data_object
 from emptylog.protocols import LoggerProtocol, LoggerMethodProtocol
 from emptylog.abstract_logger import AbstractLogger
 
+
+if sys.version_info < (3, 9):
+    GroupIterator = Iterator  # pragma: no cover
+else:
+    GroupIterator = Iterator[LoggerProtocol]  # pragma: no cover
 
 class LoggersGroup(AbstractLogger):
     loggers: Tuple[LoggerProtocol, ...]
@@ -25,7 +31,7 @@ class LoggersGroup(AbstractLogger):
     def __len__(self) -> int:
         return len(self.loggers)
 
-    def __iter__(self) -> Iterator[LoggerProtocol]:
+    def __iter__(self) -> GroupIterator:
         yield from self.loggers
 
     def debug(self, message: str, *args: Any, **kwargs: Any) -> None:
