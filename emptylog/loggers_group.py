@@ -1,5 +1,6 @@
 from typing import Tuple, Callable, Any
 from threading import Lock
+from collections.abc import Iterator
 
 from printo import descript_data_object
 
@@ -23,6 +24,9 @@ class LoggersGroup(AbstractLogger):
 
     def __len__(self) -> int:
         return len(self.loggers)
+
+    def __iter__(self) -> Iterator[LoggerProtocol]:
+        yield from self.loggers
 
     def debug(self, message: str, *args: Any, **kwargs: Any) -> None:
         self.run_loggers(lambda x: x.debug, message, *args, **kwargs)
