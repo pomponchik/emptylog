@@ -156,3 +156,18 @@ def test_third_party_logger_plus_empty_group(third_party_logger):
     assert len(sum.loggers) == 1
     assert len(sum) == 1
     assert sum.loggers[0] is third_party_logger
+
+
+@pytest.mark.parametrize(
+    ['loggers'],
+    (
+        ([loguru_logger, logging, logging.getLogger('kek')],),
+        ([MemoryLogger(), MemoryLogger()],),
+        ([MemoryLogger()],),
+        ([],),
+    ),
+)
+def test_iteration_by_group(loggers):
+    group = LoggersGroup(*loggers)
+
+    assert loggers == [x for x in group]
