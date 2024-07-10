@@ -122,3 +122,20 @@ def test_sum_with_wrong_first_operand(logger, wrong_operand):
 def test_sum_with_wrong_second_operand(logger, wrong_operand):
     with pytest.raises(NotImplementedError, match=full_match('The addition operation is defined only for loggers.')):
         logger + wrong_operand
+
+
+def test_sum_of_three_loggers():
+    first_logger = EmptyLogger()
+    second_logger = MemoryLogger()
+    third_logger = PrintingLogger()
+
+    sum = first_logger + second_logger + third_logger
+
+    assert isinstance(sum, LoggersGroup)
+
+    assert len(sum) == 3
+    assert len(sum.loggers) == 3
+
+    assert sum.loggers[0] is first_logger
+    assert sum.loggers[1] is second_logger
+    assert sum.loggers[2] is third_logger
