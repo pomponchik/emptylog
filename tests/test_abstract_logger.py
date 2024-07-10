@@ -2,6 +2,7 @@ import logging
 
 import pytest
 import full_match
+from loguru import logger as loguru_logger
 
 from emptylog.abstract_logger import AbstractLogger
 from emptylog import EmptyLogger, LoggersGroup, MemoryLogger, PrintingLogger
@@ -23,6 +24,7 @@ from emptylog import EmptyLogger, LoggersGroup, MemoryLogger, PrintingLogger
         (PrintingLogger(),),
         (logging,),
         (logging.getLogger('kek'),),
+        (loguru_logger,),
     ),
 )
 def test_sum_of_inner_loggers(first_logger, second_logger):
@@ -42,6 +44,7 @@ def test_sum_of_inner_loggers(first_logger, second_logger):
     (
         (logging,),
         (logging.getLogger('kek'),),
+        (loguru_logger,),
     ),
 )
 @pytest.mark.parametrize(
