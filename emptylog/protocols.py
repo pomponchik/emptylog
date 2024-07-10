@@ -14,3 +14,7 @@ class LoggerProtocol(Protocol):
     def error(self, message: str, *args: Any, **kwargs: Any) -> None: return None
     def exception(self, message: str, *args: Any, **kwargs: Any) -> None: return None
     def critical(self, message: str, *args: Any, **kwargs: Any) -> None: return None
+
+
+class LoggerMethodProtocol(Protocol):
+    def __call__(self, message: str, *args: Any, **kwargs: Any) -> None: return None  # pragma: no cover

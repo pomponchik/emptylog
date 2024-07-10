@@ -4,7 +4,7 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = 'emptylog'
-version = '0.0.5'
+version = '0.0.6'
 authors = [
   { name='Evgeniy Blinov', email='zheni-b@yandex.ru' },
 ]
@@ -13,6 +13,7 @@ readme = 'README.md'
 requires-python = '>=3.7'
 dependencies = [
     'typing_extensions ; python_version < "3.8"',
+    'printo>=0.0.2',
 ]
 classifiers = [
   'Operating System :: MacOS :: MacOS X',
@@ -26,12 +27,17 @@ classifiers = [
   'Programming Language :: Python :: 3.12',
   'License :: OSI Approved :: MIT License',
   'Topic :: Software Development :: Libraries',
-  'Topic :: Software Development :: Interpreters',
-  'Topic :: Utilities',
-  'Topic :: System :: Archiving :: Packaging',
-  'Intended Audience :: System Administrators',
+  'Topic :: Software Development :: Testing',
+  'Topic :: Software Development :: Testing :: Mocking',
+  'Topic :: Software Development :: Testing :: Unit',
+  'Topic :: System :: Logging',
   'Intended Audience :: Developers',
   'Typing :: Typed',
+]
+keywords = [
+    'logging',
+    'protocols',
+    'loggers mocks',
 ]
 
 [tool.setuptools.package-data]

@@ -2,10 +2,10 @@ from typing import Callable, Any
 from datetime import datetime
 from functools import partial
 
-from emptylog.protocol import LoggerProtocol
+from emptylog.abstract_logger import AbstractLogger
 
 
-class PrintingLogger(LoggerProtocol):
+class PrintingLogger(AbstractLogger):
     def __init__(self, printing_callback: Callable[[Any], Any] = partial(print, end=''), separator: str = '|') -> None:
         self.callback = printing_callback
         self.separator = separator

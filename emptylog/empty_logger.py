@@ -1,5 +1,5 @@
-from emptylog.protocol import LoggerProtocol
+from emptylog.abstract_logger import AbstractLogger
 
 
-class EmptyLogger(LoggerProtocol):
+class EmptyLogger(AbstractLogger):
     pass
