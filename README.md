@@ -183,3 +183,45 @@ logger = PrintingLogger() + MemoryLogger()
 print(logger)
 #> LoggersGroup(PrintingLogger(), MemoryLogger())
 ```
+
+The group object also implements the [logger protocol](#universal-logger-protocol). If you use it as a logger, it will alternately call the appropriate methods from the loggers nested in it:
+
+```python
+printing_logger = PrintingLogger()
+memory_logger = MemoryLogger()
+
+super_logger = printing_logger + memory_logger
+
+super_logger.info('Together we are a force!')
+#> 2024-07-10 16:49:21.247290 | INFO      | Together we are a force!
+print(memory_logger.data.info[0].message)
+#> Together we are a force!
+```
+
+You can sum up more than 2 loggers. In this case, the number of nesting levels will not grow:
+
+```python
+print(MemoryLogger() + MemoryLogger() + MemoryLogger())
+#> LoggersGroup(MemoryLogger(), MemoryLogger(), MemoryLogger())
+```
+
+You can also add any loggers from this library with loggers from other libraries, for example from the [standard library](https://docs.python.org/3/library/logging.html) or from [loguru](https://github.com/Delgan/loguru):
+
+```python
+import logging
+from loguru import logger as loguru_logger
+
+print(MemoryLogger() + loguru_logger + logging.getLogger(__name__))
+#> LoggersGroup(MemoryLogger(), <loguru.logger handlers=[(id=0, level=10, sink=<stderr>)]>, <Logger __main__ (WARNING)>)
+```
+
+Finally, you can use a group as an iterable object, as well as find out the number of nested loggers in a standard way:
+
+```python
+group = PrintingLogger() + MemoryLogger()
+
+print(len(group))
+#> 2
+print([x for x in group])
+#> [PrintingLogger(), MemoryLogger()]
+```
