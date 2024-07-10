@@ -1,6 +1,20 @@
 from emptylog import LoggersGroup, MemoryLogger
 
 import pytest
+import full_match
+
+
+@pytest.mark.parametrize(
+    ['wrong_logger', 'exception_message'],
+    (
+        (1, 'A logger group can only be created from loggers. You passed 1 (int).'),
+        ('kek', 'A logger group can only be created from loggers. You passed \'kek\' (str).'),
+        (None, 'A logger group can only be created from loggers. You passed None (NoneType).'),
+    ),
+)
+def test_create_group_with_not_loggers(wrong_logger, exception_message):
+    with pytest.raises(TypeError, match=full_match(exception_message)):
+        LoggersGroup(wrong_logger)
 
 
 @pytest.mark.parametrize(

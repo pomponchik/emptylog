@@ -11,6 +11,10 @@ class LoggersGroup(AbstractLogger):
     loggers: Tuple[LoggerProtocol, ...]
 
     def __init__(self, *loggers: LoggerProtocol) -> None:
+        for logger in loggers:
+            if not isinstance(logger, LoggerProtocol):
+                raise TypeError(f'A logger group can only be created from loggers. You passed {repr(logger)} ({type(logger).__name__}).')
+
         self.loggers = loggers
         self.lock = Lock()
 
