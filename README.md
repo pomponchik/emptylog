@@ -22,6 +22,7 @@ This package ensures compatibility of any logger implementations with the built-
 - [**Empty Logger**](#empty-logger)
 - [**Memory Logger**](#memory-logger)
 - [**Printing Logger**](#printing-logger)
+- [**Summation of loggers**](#summation-of-loggers)
 
 
 ## Installing
@@ -168,4 +169,17 @@ logger = PrintingLogger(printing_callback=callback)
 logger.info('Hello, the colored world!')
 #> 2024-07-09 11:20:03.693837 | INFO      | Hello, the colored world!
 # You can't see it here, but believe me, if you repeat the code at home, the output in the console will be green!
+```
+
+
+## Summation of loggers
+
+All loggers represented in this library can be grouped together. To do this, just use the "+" operator:
+
+```python
+from emptylog import PrintingLogger, MemoryLogger
+
+logger = PrintingLogger() + MemoryLogger()
+print(logger)
+#> LoggersGroup(PrintingLogger(), MemoryLogger())
 ```
