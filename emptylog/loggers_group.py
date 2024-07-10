@@ -8,9 +8,11 @@ from emptylog.abstract_logger import AbstractLogger
 
 
 class LoggersGroup(AbstractLogger):
+    loggers: Tuple[LoggerProtocol, ...]
+
     def __init__(self, *loggers: LoggerProtocol) -> None:
-        self.loggers: Tuple[LoggerProtocol, ...] = loggers
-        self.lock: Lock = Lock()
+        self.loggers = loggers
+        self.lock = Lock()
 
     def __repr__(self) -> str:
         return descript_data_object(type(self).__name__, self.loggers, {}, serializator=repr)
