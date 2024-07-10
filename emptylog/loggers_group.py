@@ -21,6 +21,9 @@ class LoggersGroup(AbstractLogger):
     def __repr__(self) -> str:
         return descript_data_object(type(self).__name__, self.loggers, {}, serializator=repr)
 
+    def __len__(self) -> int:
+        return len(self.loggers)
+
     def debug(self, message: str, *args: Any, **kwargs: Any) -> None:
         self.run_loggers(lambda x: x.debug, message, *args, **kwargs)
 

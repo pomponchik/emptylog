@@ -7,6 +7,19 @@ from loguru import logger as loguru_logger
 from emptylog import LoggersGroup, MemoryLogger
 
 
+def test_len_of_group():
+    assert len(LoggersGroup()) == 0
+    assert len(LoggersGroup(MemoryLogger())) == 1
+    assert len(LoggersGroup(MemoryLogger(), MemoryLogger())) == 2
+    assert len(LoggersGroup(MemoryLogger(), MemoryLogger(), MemoryLogger())) == 3
+    assert len(LoggersGroup(MemoryLogger(), MemoryLogger(), MemoryLogger(), MemoryLogger())) == 4
+
+    assert len(LoggersGroup() + LoggersGroup()) == 0
+    assert len(LoggersGroup() + MemoryLogger()) == 1
+    assert len(MemoryLogger() + MemoryLogger()) == 2
+    assert len(MemoryLogger() + MemoryLogger() + MemoryLogger()) == 3
+
+
 @pytest.mark.parametrize(
     ['wrong_logger', 'exception_message'],
     (
@@ -101,6 +114,7 @@ def test_another_logger_plus_empty_group():
 
     assert type(another_logger + LoggersGroup()) is LoggersGroup
     assert len((another_logger + LoggersGroup()).loggers) == 1
+    assert len(another_logger + LoggersGroup()) == 1
     assert (another_logger + LoggersGroup()).loggers[0] is another_logger
 
 
@@ -120,6 +134,7 @@ def test_empty_group_plus_third_party_logger(third_party_logger):
     assert type(sum) is LoggersGroup
     assert sum is not first_group
     assert len(sum.loggers) == 1
+    assert len(sum) == 1
     assert sum.loggers[0] is third_party_logger
 
 
@@ -139,4 +154,5 @@ def test_third_party_logger_plus_empty_group(third_party_logger):
     assert type(sum) is LoggersGroup
     assert sum is not first_group
     assert len(sum.loggers) == 1
+    assert len(sum) == 1
     assert sum.loggers[0] is third_party_logger
