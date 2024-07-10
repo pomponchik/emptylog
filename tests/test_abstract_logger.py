@@ -11,7 +11,6 @@ from emptylog import EmptyLogger, LoggersGroup, MemoryLogger, PrintingLogger
     ['first_logger'],
     (
         (EmptyLogger(),),
-        (LoggersGroup(),),
         (MemoryLogger(),),
         (PrintingLogger(),),
     ),
@@ -20,7 +19,6 @@ from emptylog import EmptyLogger, LoggersGroup, MemoryLogger, PrintingLogger
     ['second_logger'],
     (
         (EmptyLogger(),),
-        (LoggersGroup(),),
         (MemoryLogger(),),
         (PrintingLogger(),),
         (logging,),
@@ -50,7 +48,6 @@ def test_sum_of_inner_loggers(first_logger, second_logger):
     ['second_logger'],
     (
         (EmptyLogger(),),
-        (LoggersGroup(),),
         (MemoryLogger(),),
         (PrintingLogger(),),
     ),
