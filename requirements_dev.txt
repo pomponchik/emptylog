@@ -6,3 +6,4 @@ mypy==1.4.1
 ruff==0.0.290
 mutmut==2.4.4
 full_match==0.0.1
+loguru==0.7.2

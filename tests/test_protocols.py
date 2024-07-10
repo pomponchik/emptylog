@@ -1,5 +1,7 @@
 import logging
 
+from loguru import logger as loguru_logger
+
 from emptylog import LoggerProtocol, EmptyLogger, LoggersGroup, MemoryLogger, PrintingLogger
 
 
@@ -16,3 +18,7 @@ def test_positive_examples_of_runtime_check():
 def test_negative_examples_of_runtime_check():
     assert not isinstance(1, LoggerProtocol)
     assert not isinstance('logging', LoggerProtocol)
+
+
+def test_loguru_logger_is_logger():
+    assert isinstance(loguru_logger, LoggerProtocol)
