@@ -1,7 +1,10 @@
-from emptylog import LoggersGroup, MemoryLogger
+import logging
 
 import pytest
 import full_match
+from loguru import logger as loguru_logger
+
+from emptylog import LoggersGroup, MemoryLogger
 
 
 @pytest.mark.parametrize(
@@ -99,3 +102,41 @@ def test_another_logger_plus_empty_group():
     assert type(another_logger + LoggersGroup()) is LoggersGroup
     assert len((another_logger + LoggersGroup()).loggers) == 1
     assert (another_logger + LoggersGroup()).loggers[0] is another_logger
+
+
+@pytest.mark.parametrize(
+    ['third_party_logger'],
+    (
+        (loguru_logger,),
+        (logging,),
+        (logging.getLogger('kek'),),
+    ),
+)
+def test_empty_group_plus_third_party_logger(third_party_logger):
+    first_group = LoggersGroup()
+
+    sum = first_group + third_party_logger
+
+    assert type(sum) is LoggersGroup
+    assert sum is not first_group
+    assert len(sum.loggers) == 1
+    assert sum.loggers[0] is third_party_logger
+
+
+@pytest.mark.parametrize(
+    ['third_party_logger'],
+    (
+        (loguru_logger,),
+        (logging,),
+        (logging.getLogger('kek'),),
+    ),
+)
+def test_third_party_logger_plus_empty_group(third_party_logger):
+    first_group = LoggersGroup()
+
+    sum = third_party_logger + first_group
+
+    assert type(sum) is LoggersGroup
+    assert sum is not first_group
+    assert len(sum.loggers) == 1
+    assert sum.loggers[0] is third_party_logger
