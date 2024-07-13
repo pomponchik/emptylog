@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/pomponchik/emptylog/develop/docs/assets/logo_3.svg)
+![logo](https://raw.githubusercontent.com/pomponchik/emptylog/develop/docs/assets/logo_4.svg)
 
 [![Downloads](https://static.pepy.tech/badge/emptylog/month)](https://pepy.tech/project/emptylog)
 [![Downloads](https://static.pepy.tech/badge/emptylog)](https://pepy.tech/project/emptylog)
