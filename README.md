@@ -1,3 +1,5 @@
+![logo](https://raw.githubusercontent.com/pomponchik/cantok/develop/docs/assets/logo_1.png)
+
 # emptylog: some tools for logging
 
 [![Downloads](https://static.pepy.tech/badge/emptylog/month)](https://pepy.tech/project/emptylog)
