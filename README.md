@@ -11,8 +11,17 @@
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 
+This library is designed to extend the capabilities of the built-in [`logging`](https://docs.python.org/3/library/logging.html) library.
 
-This package ensures compatibility of any logger implementations with the built-in [`logging`](https://docs.python.org/3/library/logging.html) library.
+One of the important problems that it solves is the fact that almost no one tests logging in their programs. Are you sure that your program logs everything you need? Programmers cover with tests what they consider to be the basic logic of the program. Logging problems are usually detected only when something is on fire, and then you realize that there are not enough logs, or the wrong thing is being logged. On the contrary, this library makes logging as much a test-friendly part of your program as regular logic.
+
+Here are some of the features it provides:
+
+- A [universal logger protocol](#universal-logger-protocol) that allows you to replace one logger with another without typing violations. In tests, you can replace the original logger with a [logger that remembers its calls](#memory-logger) to check that logging is correct.
+- An [empty logger]((#empty-logger)) that does nothing when you call it. It is useful for writing library functions where the user can pass their logger, but there is no logging by default.
+- A [memory logger](#memory-logger) that remembers all the times it was called. To verify that your code is correctly logged in, pass it a memory logger object instead of the default logger, and then check how it was used.
+- A [printing logger](#printing-logger) is a "toy version" of a real logger that you can use to visualize all logger calls inside your test.
+- All loggers presented in this library can be easily [combined](#summation-of-loggers) using the "+" symbol.
 
 
 ## Table of contents
