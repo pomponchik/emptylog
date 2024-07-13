@@ -224,7 +224,7 @@ print(MemoryLogger() + loguru_logger + logging.getLogger(__name__))
 #> LoggersGroup(MemoryLogger(), <loguru.logger handlers=[(id=0, level=10, sink=<stderr>)]>, <Logger __main__ (WARNING)>)
 ```
 
-Finally, you can use a group as an iterable object, as well as find out the [number of nested loggers](https://docs.python.org/3/library/functions.html#len) in a standard way:
+Finally, you can use a group as an iterable object, as well as find out the number of nested loggers in a standard way:
 
 ```python
 group = PrintingLogger() + MemoryLogger()
