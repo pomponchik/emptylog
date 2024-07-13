@@ -1,6 +1,4 @@
-![logo](https://raw.githubusercontent.com/pomponchik/emptylog/develop/docs/assets/logo_2.svg)
-
-# emptylog: some tools for logging
+![logo](https://raw.githubusercontent.com/pomponchik/emptylog/develop/docs/assets/logo_3.svg)
 
 [![Downloads](https://static.pepy.tech/badge/emptylog/month)](https://pepy.tech/project/emptylog)
 [![Downloads](https://static.pepy.tech/badge/emptylog)](https://pepy.tech/project/emptylog)
