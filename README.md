@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/pomponchik/emptylog/develop/docs/assets/logo_1.png)
+![logo](https://raw.githubusercontent.com/pomponchik/emptylog/develop/docs/assets/logo_1.svg)
 
 # emptylog: some tools for logging
 
