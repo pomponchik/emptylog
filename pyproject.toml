@@ -13,7 +13,7 @@ readme = 'README.md'
 requires-python = '>=3.7'
 dependencies = [
     'typing_extensions ; python_version < "3.8"',
-    'printo>=0.0.2',
+    'printo>=0.0.4',
 ]
 classifiers = [
   'Operating System :: MacOS :: MacOS X',

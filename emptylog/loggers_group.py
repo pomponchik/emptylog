@@ -26,7 +26,7 @@ class LoggersGroup(AbstractLogger):
         self.lock = Lock()
 
     def __repr__(self) -> str:
-        return descript_data_object(type(self).__name__, self.loggers, {}, serializator=repr)
+        return descript_data_object(type(self).__name__, self.loggers, {})
 
     def __len__(self) -> int:
         return len(self.loggers)
