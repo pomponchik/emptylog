@@ -31,7 +31,7 @@ class LoggersGroup(AbstractLogger):
     def __len__(self) -> int:
         return len(self.loggers)
 
-    def __iter__(self) -> GroupIterator:
+    def __iter__(self) -> GroupIterator:  # type: ignore[type-arg, unused-ignore]
         yield from self.loggers
 
     def debug(self, message: str, *args: Any, **kwargs: Any) -> None:
