@@ -1,9 +1,4 @@
-from typing import Any
-
-try:
-    from typing import Protocol, runtime_checkable
-except ImportError:  # pragma: no cover
-    from typing_extensions import Protocol, runtime_checkable  # type: ignore[assignment]
+from typing import Protocol, runtime_checkable, Any
 
 
 @runtime_checkable

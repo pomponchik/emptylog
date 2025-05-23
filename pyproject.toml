@@ -4,7 +4,7 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = 'emptylog'
-version = '0.0.9'
+version = '0.0.10'
 authors = [
   { name='Evgeniy Blinov', email='zheni-b@yandex.ru' },
 ]
@@ -12,7 +12,6 @@ description = 'Mimicking the logger protocol'
 readme = 'README.md'
 requires-python = '>=3.8'
 dependencies = [
-    'typing_extensions ; python_version < "3.8"',
     'printo>=0.0.5',
 ]
 classifiers = [
