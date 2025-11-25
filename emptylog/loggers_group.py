@@ -15,7 +15,7 @@ else:
     GroupIterator = Iterator[LoggerProtocol]  # pragma: no cover
 
 class LoggersGroup(AbstractLogger):
-    loggers: Tuple[LoggerProtocol, ...]
+    loggers: Tuple[LoggerProtocol, ...]  # pragma: no cover
 
     def __init__(self, *loggers: LoggerProtocol) -> None:
         for logger in loggers:

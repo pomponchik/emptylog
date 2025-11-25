@@ -1,7 +1,7 @@
 import logging
 
 import pytest
-import full_match
+from full_match import match
 from loguru import logger as loguru_logger
 
 from emptylog import LoggersGroup, MemoryLogger
@@ -29,7 +29,7 @@ def test_len_of_group():
     ),
 )
 def test_create_group_with_not_loggers(wrong_logger, exception_message):
-    with pytest.raises(TypeError, match=full_match(exception_message)):
+    with pytest.raises(TypeError, match=match(exception_message)):
         LoggersGroup(wrong_logger)
 
 

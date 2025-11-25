@@ -1,7 +1,7 @@
 import logging
 
 import pytest
-import full_match
+from full_match import match
 from loguru import logger as loguru_logger
 
 from emptylog.abstract_logger import AbstractLogger
@@ -98,7 +98,7 @@ def test_all_loggers_are_instances_of_abstract_logger(logger):
     ),
 )
 def test_sum_with_wrong_first_operand(logger, wrong_operand):
-    with pytest.raises(NotImplementedError, match=full_match('The addition operation is defined only for loggers.')):
+    with pytest.raises(NotImplementedError, match=match('The addition operation is defined only for loggers.')):
         wrong_operand + logger
 
 
@@ -120,7 +120,7 @@ def test_sum_with_wrong_first_operand(logger, wrong_operand):
     ),
 )
 def test_sum_with_wrong_second_operand(logger, wrong_operand):
-    with pytest.raises(NotImplementedError, match=full_match('The addition operation is defined only for loggers.')):
+    with pytest.raises(NotImplementedError, match=match('The addition operation is defined only for loggers.')):
         logger + wrong_operand
 
 
