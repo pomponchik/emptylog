@@ -4,7 +4,7 @@ from contextlib import redirect_stdout
 
 import pytest
 
-from emptylog import PrintingLogger, LoggerProtocol
+from emptylog import LoggerProtocol, PrintingLogger
 
 
 def test_printing_logger_is_logger():
@@ -12,8 +12,8 @@ def test_printing_logger_is_logger():
 
 
 @pytest.mark.parametrize(
-    ['method', 'result_tail'],
-    (
+    ('method', 'result_tail'),
+    [
         (PrintingLogger().debug, ' | DEBUG     | kek'),
         (PrintingLogger().info, ' | INFO      | kek'),
         (PrintingLogger().warning, ' | WARNING   | kek'),
@@ -27,7 +27,7 @@ def test_printing_logger_is_logger():
         (PrintingLogger(separator='*').error, ' * ERROR     * kek'),
         (PrintingLogger(separator='*').exception, ' * EXCEPTION * kek'),
         (PrintingLogger(separator='*').critical, ' * CRITICAL  * kek'),
-    ),
+    ],
 )
 def test_check_simple_output(method, result_tail):
     # this code is adapted from there: https://stackoverflow.com/a/66683635
@@ -59,15 +59,15 @@ def test_check_simple_output(method, result_tail):
 
 
 @pytest.mark.parametrize(
-    ['get_method', 'result_tail'],
-    (
+    ('get_method', 'result_tail'),
+    [
         (lambda x: x.debug, ' | DEBUG     | kek'),
         (lambda x: x.info, ' | INFO      | kek'),
         (lambda x: x.warning, ' | WARNING   | kek'),
         (lambda x: x.error, ' | ERROR     | kek'),
         (lambda x: x.exception, ' | EXCEPTION | kek'),
         (lambda x: x.critical, ' | CRITICAL  | kek'),
-    ),
+    ],
 )
 def test_forward_output(get_method, result_tail):
     # this code is adapted from there: https://stackoverflow.com/a/66683635
@@ -111,21 +111,21 @@ def test_forward_output(get_method, result_tail):
 
 
 @pytest.mark.parametrize(
-    ['method', 'result_tail'],
-    (
+    ('method', 'result_tail'),
+    [
         (PrintingLogger().debug, ' | DEBUG     | kek'),
         (PrintingLogger().info, ' | INFO      | kek'),
         (PrintingLogger().warning, ' | WARNING   | kek'),
         (PrintingLogger().error, ' | ERROR     | kek'),
         (PrintingLogger().exception, ' | EXCEPTION | kek'),
         (PrintingLogger().critical, ' | CRITICAL  | kek'),
-    ),
+    ],
 )
 def test_multiple_lines(method, result_tail):
     number_of_iterations = 10
     lines = []
 
-    for number in range(number_of_iterations):
+    for _ in range(number_of_iterations):
         buffer = io.StringIO()
         with redirect_stdout(buffer):
             method('kek')
@@ -139,3 +139,25 @@ def test_multiple_lines(method, result_tail):
 
 def test_repr_printing_logger():
     assert repr(PrintingLogger()) == 'PrintingLogger()'
+
+
+def test_methods_return_none():
+    logger = PrintingLogger()
+
+    for name in ['debug', 'info', 'warning', 'error', 'exception', 'critical']:
+        result = getattr(logger, name)('message', 'extra_arg', key='value')
+
+        assert result is None
+
+
+def test_args_and_kwargs_are_not_printed():
+    lines = []
+    logger = PrintingLogger(printing_callback=lines.append)
+
+    logger.debug('hello', 'extra_arg', key='value')  # noqa: PLE1205
+
+    assert len(lines) == 1
+    assert 'extra_arg' not in lines[0]
+    assert 'key' not in lines[0]
+    assert 'value' not in lines[0]
+    assert 'hello' in lines[0]

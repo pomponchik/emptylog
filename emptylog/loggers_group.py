@@ -1,13 +1,12 @@
 import sys
-from typing import Tuple, Callable, Any
-from threading import Lock
 from collections.abc import Iterator
+from threading import Lock
+from typing import Any, Callable, Tuple
 
 from printo import descript_data_object
 
-from emptylog.protocols import LoggerProtocol, LoggerMethodProtocol
 from emptylog.abstract_logger import AbstractLogger
-
+from emptylog.protocols import LoggerMethodProtocol, LoggerProtocol
 
 if sys.version_info < (3, 9):
     GroupIterator = Iterator  # pragma: no cover
@@ -20,7 +19,7 @@ class LoggersGroup(AbstractLogger):
     def __init__(self, *loggers: LoggerProtocol) -> None:
         for logger in loggers:
             if not isinstance(logger, LoggerProtocol):
-                raise TypeError(f'A logger group can only be created from loggers. You passed {repr(logger)} ({type(logger).__name__}).')
+                raise TypeError(f'A logger group can only be created from loggers. You passed {logger!r} ({type(logger).__name__}).')
 
         self.loggers = loggers
         self.lock = Lock()

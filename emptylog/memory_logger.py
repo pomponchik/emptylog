@@ -1,8 +1,8 @@
 from typing import Any
 
 from emptylog.abstract_logger import AbstractLogger
-from emptylog.call_data import LoggerCallData
 from emptylog.accumulated_data import LoggerAccumulatedData
+from emptylog.call_data import LoggerCallData
 
 
 class MemoryLogger(AbstractLogger):

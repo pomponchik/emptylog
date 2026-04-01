@@ -21,12 +21,12 @@ def test_len_of_group():
 
 
 @pytest.mark.parametrize(
-    ['wrong_logger', 'exception_message'],
-    (
+    ('wrong_logger', 'exception_message'),
+    [
         (1, 'A logger group can only be created from loggers. You passed 1 (int).'),
         ('kek', 'A logger group can only be created from loggers. You passed \'kek\' (str).'),
         (None, 'A logger group can only be created from loggers. You passed None (NoneType).'),
-    ),
+    ],
 )
 def test_create_group_with_not_loggers(wrong_logger, exception_message):
     with pytest.raises(TypeError, match=match(exception_message)):
@@ -34,15 +34,15 @@ def test_create_group_with_not_loggers(wrong_logger, exception_message):
 
 
 @pytest.mark.parametrize(
-    ['get_method'],
-    (
-        (lambda x: x.debug,),
-        (lambda x: x.info,),
-        (lambda x: x.warning,),
-        (lambda x: x.error,),
-        (lambda x: x.exception,),
-        (lambda x: x.critical,),
-    ),
+    'get_method',
+    [
+        lambda x: x.debug,
+        lambda x: x.info,
+        lambda x: x.warning,
+        lambda x: x.error,
+        lambda x: x.exception,
+        lambda x: x.critical,
+    ],
 )
 def test_run_group_of_memory_loggers(get_method):
     first_internal_logger = MemoryLogger()
@@ -119,55 +119,124 @@ def test_another_logger_plus_empty_group():
 
 
 @pytest.mark.parametrize(
-    ['third_party_logger'],
-    (
-        (loguru_logger,),
-        (logging,),
-        (logging.getLogger('kek'),),
-    ),
+    'third_party_logger',
+    [
+        loguru_logger,
+        logging,
+        logging.getLogger('kek'),
+    ],
 )
 def test_empty_group_plus_third_party_logger(third_party_logger):
     first_group = LoggersGroup()
 
-    sum = first_group + third_party_logger
+    result = first_group + third_party_logger
 
-    assert type(sum) is LoggersGroup
-    assert sum is not first_group
-    assert len(sum.loggers) == 1
-    assert len(sum) == 1
-    assert sum.loggers[0] is third_party_logger
+    assert type(result) is LoggersGroup
+    assert result is not first_group
+    assert len(result.loggers) == 1
+    assert len(result) == 1
+    assert result.loggers[0] is third_party_logger
 
 
 @pytest.mark.parametrize(
-    ['third_party_logger'],
-    (
-        (loguru_logger,),
-        (logging,),
-        (logging.getLogger('kek'),),
-    ),
+    'third_party_logger',
+    [
+        loguru_logger,
+        logging,
+        logging.getLogger('kek'),
+    ],
 )
 def test_third_party_logger_plus_empty_group(third_party_logger):
     first_group = LoggersGroup()
 
-    sum = third_party_logger + first_group
+    result = third_party_logger + first_group
 
-    assert type(sum) is LoggersGroup
-    assert sum is not first_group
-    assert len(sum.loggers) == 1
-    assert len(sum) == 1
-    assert sum.loggers[0] is third_party_logger
+    assert type(result) is LoggersGroup
+    assert result is not first_group
+    assert len(result.loggers) == 1
+    assert len(result) == 1
+    assert result.loggers[0] is third_party_logger
 
 
 @pytest.mark.parametrize(
-    ['loggers'],
-    (
-        ([loguru_logger, logging, logging.getLogger('kek')],),
-        ([MemoryLogger(), MemoryLogger()],),
-        ([MemoryLogger()],),
-        ([],),
-    ),
+    'loggers',
+    [
+        [loguru_logger, logging, logging.getLogger('kek')],
+        [MemoryLogger(), MemoryLogger()],
+        [MemoryLogger()],
+        [],
+    ],
 )
 def test_iteration_by_group(loggers):
     group = LoggersGroup(*loggers)
 
     assert loggers == [x for x in group]
+
+
+def test_calling_methods_on_empty_group_does_not_raise():
+    group = LoggersGroup()
+
+    group.debug('msg')
+    group.info('msg')
+    group.warning('msg')
+    group.error('msg')
+    group.exception('msg')
+    group.critical('msg')
+
+
+def test_loggers_are_called_in_order():
+    call_order = []
+
+    class RecordingLogger:
+        def __init__(self, name):
+            self.name = name
+        def debug(self, *args, **kwargs): call_order.append(self.name)  # noqa: ARG002
+        def info(self, *args, **kwargs): call_order.append(self.name)  # noqa: ARG002
+        def warning(self, *args, **kwargs): call_order.append(self.name)  # noqa: ARG002
+        def error(self, *args, **kwargs): call_order.append(self.name)  # noqa: ARG002
+        def exception(self, *args, **kwargs): call_order.append(self.name)  # noqa: ARG002
+        def critical(self, *args, **kwargs): call_order.append(self.name)  # noqa: ARG002
+
+    first = RecordingLogger('first')
+    second = RecordingLogger('second')
+    third = RecordingLogger('third')
+    group = LoggersGroup(first, second, third)
+
+    group.debug('msg')
+
+    assert call_order == ['first', 'second', 'third']
+
+
+def test_run_single_logger_group():
+    logger = MemoryLogger()
+    group = LoggersGroup(logger)
+    group.info('hello', 'arg', key='val')
+    assert logger.data.info[0].message == 'hello'
+    assert logger.data.info[0].args == ('arg',)
+    assert logger.data.info[0].kwargs == {'key': 'val'}
+
+
+def test_run_three_logger_group():
+    loggers = [MemoryLogger(), MemoryLogger(), MemoryLogger()]
+    group = LoggersGroup(*loggers)
+    group.error('msg', 'arg', k='v')
+    for logger in loggers:
+        assert logger.data.error[0].message == 'msg'
+        assert logger.data.error[0].args == ('arg',)
+        assert logger.data.error[0].kwargs == {'k': 'v'}
+
+
+def test_two_non_empty_groups_addition():
+    logger1 = MemoryLogger()
+    logger2 = MemoryLogger()
+    logger3 = MemoryLogger()
+    logger4 = MemoryLogger()
+
+    result = LoggersGroup(logger1, logger2) + LoggersGroup(logger3, logger4)
+
+    assert type(result) is LoggersGroup
+    assert len(result) == 4
+    assert result.loggers[0] is logger1
+    assert result.loggers[1] is logger2
+    assert result.loggers[2] is logger3
+    assert result.loggers[3] is logger4

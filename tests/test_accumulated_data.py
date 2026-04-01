@@ -1,5 +1,5 @@
-from emptylog.call_data import LoggerCallData
 from emptylog.accumulated_data import LoggerAccumulatedData
+from emptylog.call_data import LoggerCallData
 
 
 def test_fill_accumulated_data_and_check_size():
@@ -26,3 +26,13 @@ def test_fill_accumulated_data_and_check_size():
             assert len(data) == logs_sum
 
     assert len(data) == 21
+
+
+def test_each_list_attribute_is_independent():
+    data = LoggerAccumulatedData()
+    lists = [data.debug, data.info, data.warning, data.error, data.exception, data.critical]
+
+    for i in range(len(lists)):
+        for j in range(len(lists)):
+            if i != j:
+                assert lists[i] is not lists[j]

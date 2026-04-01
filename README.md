@@ -1,4 +1,5 @@
-![logo](https://raw.githubusercontent.com/pomponchik/emptylog/develop/docs/assets/logo_5.svg)
+<details>
+  <summary>ⓘ</summary>
 
 [![Downloads](https://static.pepy.tech/badge/emptylog/month)](https://pepy.tech/project/emptylog)
 [![Downloads](https://static.pepy.tech/badge/emptylog)](https://pepy.tech/project/emptylog)
@@ -10,6 +11,12 @@
 [![PyPI version](https://badge.fury.io/py/emptylog.svg)](https://badge.fury.io/py/emptylog)
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/pomponchik/emptylog)
+
+</details>
+
+![logo](https://raw.githubusercontent.com/pomponchik/emptylog/develop/docs/assets/logo_5.svg)
+
 
 This library is designed to extend the capabilities of the built-in [`logging`](https://docs.python.org/3/library/logging.html) library.
 
@@ -18,7 +25,7 @@ One of the important problems that it solves is the fact that almost no one test
 Here are some of the features it provides:
 
 - A [universal logger protocol](#universal-logger-protocol) that allows you to replace one logger with another without typing violations. In tests, you can replace the original logger with a [logger that remembers its calls](#memory-logger) to check that logging is correct.
-- An [empty logger]((#empty-logger)) that does nothing when you call it. It is useful for writing library functions where the user can pass their logger, but there is no logging by default.
+- An [empty logger](#empty-logger) that does nothing when you call it. It is useful for writing library functions where the user can pass their logger, but there is no logging by default.
 - A [memory logger](#memory-logger) that remembers all the times it was called. To verify that your code is correctly logged in, pass it a memory logger object instead of the default logger, and then check how it was used.
 - A [printing logger](#printing-logger) is a "toy version" of a real logger that you can use to visualize all logger calls inside your test.
 - All loggers presented in this library can be easily [combined](#summation-of-loggers) using the "+" symbol.
@@ -36,13 +43,13 @@ Here are some of the features it provides:
 
 ## Installing
 
-Install it from [Pypi](https://pypi.org/project/emptylog/):
+You can install [`emptylog`](https://pypi.org/project/emptylog) with `pip`:
 
 ```bash
 pip install emptylog
 ```
 
-You can also quickly try out this and other packages without having to install using [instld](https://github.com/pomponchik/instld).
+You can also use [`instld`](https://github.com/pomponchik/instld) to quickly try this package and others without installing them.
 
 
 ## Universal Logger Protocol
