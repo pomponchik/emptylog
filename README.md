@@ -1,4 +1,5 @@
-![logo](https://raw.githubusercontent.com/pomponchik/emptylog/develop/docs/assets/logo_5.svg)
+<details>
+  <summary>ⓘ</summary>
 
 [![Downloads](https://static.pepy.tech/badge/emptylog/month)](https://pepy.tech/project/emptylog)
 [![Downloads](https://static.pepy.tech/badge/emptylog)](https://pepy.tech/project/emptylog)
@@ -10,6 +11,11 @@
 [![PyPI version](https://badge.fury.io/py/emptylog.svg)](https://badge.fury.io/py/emptylog)
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+
+</details>
+
+![logo](https://raw.githubusercontent.com/pomponchik/emptylog/develop/docs/assets/logo_5.svg)
+
 
 This library is designed to extend the capabilities of the built-in [`logging`](https://docs.python.org/3/library/logging.html) library.
 
