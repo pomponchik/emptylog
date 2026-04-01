@@ -50,3 +50,38 @@ def test_memory_logger_is_working():
 
 def test_repr_memory_logger():
     assert repr(MemoryLogger()) == 'MemoryLogger()'
+
+
+def test_initial_data_len_is_zero():
+    assert len(MemoryLogger().data) == 0
+
+
+def test_calling_one_method_does_not_affect_other_lists():
+    logger = MemoryLogger()
+
+    logger.debug('msg')
+
+    assert len(logger.data.info) == 0
+    assert len(logger.data.warning) == 0
+    assert len(logger.data.error) == 0
+    assert len(logger.data.exception) == 0
+    assert len(logger.data.critical) == 0
+
+
+def test_data_is_independent_between_instances():
+    logger1 = MemoryLogger()
+    logger2 = MemoryLogger()
+
+    logger1.debug('msg')
+
+    assert len(logger2.data.debug) == 0
+    assert len(logger2.data) == 0
+
+
+def test_call_data_equality():
+    equal1 = LoggerCallData(message='msg', args=('a',), kwargs={'k': 'v'})
+    equal2 = LoggerCallData(message='msg', args=('a',), kwargs={'k': 'v'})
+    different = LoggerCallData(message='other', args=(), kwargs={})
+
+    assert equal1 == equal2
+    assert equal1 != different

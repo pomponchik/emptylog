@@ -139,3 +139,42 @@ def test_sum_of_three_loggers():
     assert result.loggers[0] is first_logger
     assert result.loggers[1] is second_logger
     assert result.loggers[2] is third_logger
+
+
+def test_sum_right_associative_is_flat():
+    first_logger = EmptyLogger()
+    second_logger = MemoryLogger()
+    third_logger = PrintingLogger()
+
+    inner = second_logger + third_logger
+    result = first_logger + inner
+
+    assert type(result) is LoggersGroup
+    assert len(result) == 3
+    assert result.loggers[0] is first_logger
+    assert result.loggers[1] is second_logger
+    assert result.loggers[2] is third_logger
+
+
+@pytest.mark.parametrize(
+    'logger',
+    [
+        EmptyLogger(),
+        LoggersGroup(),
+        MemoryLogger(),
+        PrintingLogger(),
+    ],
+)
+@pytest.mark.parametrize(
+    'wrong_operand',
+    [
+        1.5,
+        [],
+    ],
+)
+def test_sum_with_additional_wrong_operands(logger, wrong_operand):
+    with pytest.raises(NotImplementedError, match=match('The addition operation is defined only for loggers.')):
+        wrong_operand + logger
+
+    with pytest.raises(NotImplementedError, match=match('The addition operation is defined only for loggers.')):
+        logger + wrong_operand

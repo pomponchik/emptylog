@@ -139,3 +139,25 @@ def test_multiple_lines(method, result_tail):
 
 def test_repr_printing_logger():
     assert repr(PrintingLogger()) == 'PrintingLogger()'
+
+
+def test_methods_return_none():
+    logger = PrintingLogger()
+
+    for name in ['debug', 'info', 'warning', 'error', 'exception', 'critical']:
+        result = getattr(logger, name)('message', 'extra_arg', key='value')
+
+        assert result is None
+
+
+def test_args_and_kwargs_are_not_printed():
+    lines = []
+    logger = PrintingLogger(printing_callback=lines.append)
+
+    logger.debug('hello', 'extra_arg', key='value')  # noqa: PLE1205
+
+    assert len(lines) == 1
+    assert 'extra_arg' not in lines[0]
+    assert 'key' not in lines[0]
+    assert 'value' not in lines[0]
+    assert 'hello' in lines[0]
