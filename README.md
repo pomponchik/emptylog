@@ -42,13 +42,13 @@ Here are some of the features it provides:
 
 ## Installing
 
-Install it from [Pypi](https://pypi.org/project/emptylog/):
+You can install [`emptylog`](https://pypi.org/project/emptylog) with `pip`:
 
 ```bash
 pip install emptylog
 ```
 
-You can also quickly try out this and other packages without having to install using [instld](https://github.com/pomponchik/instld).
+You can also use [`instld`](https://github.com/pomponchik/instld) to quickly try this package and others without installing them.
 
 
 ## Universal Logger Protocol
