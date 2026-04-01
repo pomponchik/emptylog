@@ -1,6 +1,6 @@
-from typing import Callable, Any
 from datetime import datetime
 from functools import partial
+from typing import Any, Callable
 
 from emptylog.abstract_logger import AbstractLogger
 

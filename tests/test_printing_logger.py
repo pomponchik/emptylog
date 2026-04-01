@@ -4,7 +4,7 @@ from contextlib import redirect_stdout
 
 import pytest
 
-from emptylog import PrintingLogger, LoggerProtocol
+from emptylog import LoggerProtocol, PrintingLogger
 
 
 def test_printing_logger_is_logger():

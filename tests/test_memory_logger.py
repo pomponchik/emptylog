@@ -1,4 +1,4 @@
-from emptylog import MemoryLogger, LoggerProtocol
+from emptylog import LoggerProtocol, MemoryLogger
 from emptylog.memory_logger import LoggerCallData
 
 

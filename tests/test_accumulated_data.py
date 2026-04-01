@@ -1,5 +1,5 @@
-from emptylog.call_data import LoggerCallData
 from emptylog.accumulated_data import LoggerAccumulatedData
+from emptylog.call_data import LoggerCallData
 
 
 def test_fill_accumulated_data_and_check_size():

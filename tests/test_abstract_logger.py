@@ -4,27 +4,27 @@ import pytest
 from full_match import match
 from loguru import logger as loguru_logger
 
-from emptylog.abstract_logger import AbstractLogger
 from emptylog import EmptyLogger, LoggersGroup, MemoryLogger, PrintingLogger
+from emptylog.abstract_logger import AbstractLogger
 
 
 @pytest.mark.parametrize(
-    ['first_logger'],
+    'first_logger',
     (
-        (EmptyLogger(),),
-        (MemoryLogger(),),
-        (PrintingLogger(),),
+        EmptyLogger(),
+        MemoryLogger(),
+        PrintingLogger(),
     ),
 )
 @pytest.mark.parametrize(
-    ['second_logger'],
+    'second_logger',
     (
-        (EmptyLogger(),),
-        (MemoryLogger(),),
-        (PrintingLogger(),),
-        (logging,),
-        (logging.getLogger('kek'),),
-        (loguru_logger,),
+        EmptyLogger(),
+        MemoryLogger(),
+        PrintingLogger(),
+        logging,
+        logging.getLogger('kek'),
+        loguru_logger,
     ),
 )
 def test_sum_of_inner_loggers(first_logger, second_logger):
@@ -40,19 +40,19 @@ def test_sum_of_inner_loggers(first_logger, second_logger):
 
 
 @pytest.mark.parametrize(
-    ['first_logger'],
+    'first_logger',
     (
-        (logging,),
-        (logging.getLogger('kek'),),
-        (loguru_logger,),
+        logging,
+        logging.getLogger('kek'),
+        loguru_logger,
     ),
 )
 @pytest.mark.parametrize(
-    ['second_logger'],
+    'second_logger',
     (
-        (EmptyLogger(),),
-        (MemoryLogger(),),
-        (PrintingLogger(),),
+        EmptyLogger(),
+        MemoryLogger(),
+        PrintingLogger(),
     ),
 )
 def test_sum_with_another_loggers_as_first_operand(first_logger, second_logger):
@@ -68,12 +68,12 @@ def test_sum_with_another_loggers_as_first_operand(first_logger, second_logger):
 
 
 @pytest.mark.parametrize(
-    ['logger'],
+    'logger',
     (
-        (EmptyLogger(),),
-        (LoggersGroup(),),
-        (MemoryLogger(),),
-        (PrintingLogger(),),
+        EmptyLogger(),
+        LoggersGroup(),
+        MemoryLogger(),
+        PrintingLogger(),
     ),
 )
 def test_all_loggers_are_instances_of_abstract_logger(logger):
@@ -81,20 +81,20 @@ def test_all_loggers_are_instances_of_abstract_logger(logger):
 
 
 @pytest.mark.parametrize(
-    ['logger'],
+    'logger',
     (
-        (EmptyLogger(),),
-        (LoggersGroup(),),
-        (MemoryLogger(),),
-        (PrintingLogger(),),
+        EmptyLogger(),
+        LoggersGroup(),
+        MemoryLogger(),
+        PrintingLogger(),
     ),
 )
 @pytest.mark.parametrize(
-    ['wrong_operand'],
+    'wrong_operand',
     (
-        (1,),
-        ('kek',),
-        (None,),
+        1,
+        'kek',
+        None,
     ),
 )
 def test_sum_with_wrong_first_operand(logger, wrong_operand):
@@ -103,20 +103,20 @@ def test_sum_with_wrong_first_operand(logger, wrong_operand):
 
 
 @pytest.mark.parametrize(
-    ['logger'],
+    'logger',
     (
-        (EmptyLogger(),),
-        (LoggersGroup(),),
-        (MemoryLogger(),),
-        (PrintingLogger(),),
+        EmptyLogger(),
+        LoggersGroup(),
+        MemoryLogger(),
+        PrintingLogger(),
     ),
 )
 @pytest.mark.parametrize(
-    ['wrong_operand'],
+    'wrong_operand',
     (
-        (1,),
-        ('kek',),
-        (None,),
+        1,
+        'kek',
+        None,
     ),
 )
 def test_sum_with_wrong_second_operand(logger, wrong_operand):

@@ -34,14 +34,14 @@ def test_create_group_with_not_loggers(wrong_logger, exception_message):
 
 
 @pytest.mark.parametrize(
-    ['get_method'],
+    'get_method',
     (
-        (lambda x: x.debug,),
-        (lambda x: x.info,),
-        (lambda x: x.warning,),
-        (lambda x: x.error,),
-        (lambda x: x.exception,),
-        (lambda x: x.critical,),
+        lambda x: x.debug,
+        lambda x: x.info,
+        lambda x: x.warning,
+        lambda x: x.error,
+        lambda x: x.exception,
+        lambda x: x.critical,
     ),
 )
 def test_run_group_of_memory_loggers(get_method):
@@ -119,11 +119,11 @@ def test_another_logger_plus_empty_group():
 
 
 @pytest.mark.parametrize(
-    ['third_party_logger'],
+    'third_party_logger',
     (
-        (loguru_logger,),
-        (logging,),
-        (logging.getLogger('kek'),),
+        loguru_logger,
+        logging,
+        logging.getLogger('kek'),
     ),
 )
 def test_empty_group_plus_third_party_logger(third_party_logger):
@@ -139,11 +139,11 @@ def test_empty_group_plus_third_party_logger(third_party_logger):
 
 
 @pytest.mark.parametrize(
-    ['third_party_logger'],
+    'third_party_logger',
     (
-        (loguru_logger,),
-        (logging,),
-        (logging.getLogger('kek'),),
+        loguru_logger,
+        logging,
+        logging.getLogger('kek'),
     ),
 )
 def test_third_party_logger_plus_empty_group(third_party_logger):
@@ -159,12 +159,12 @@ def test_third_party_logger_plus_empty_group(third_party_logger):
 
 
 @pytest.mark.parametrize(
-    ['loggers'],
+    'loggers',
     (
-        ([loguru_logger, logging, logging.getLogger('kek')],),
-        ([MemoryLogger(), MemoryLogger()],),
-        ([MemoryLogger()],),
-        ([],),
+        [loguru_logger, logging, logging.getLogger('kek')],
+        [MemoryLogger(), MemoryLogger()],
+        [MemoryLogger()],
+        [],
     ),
 )
 def test_iteration_by_group(loggers):

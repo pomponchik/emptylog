@@ -2,7 +2,13 @@ import logging
 
 from loguru import logger as loguru_logger
 
-from emptylog import LoggerProtocol, EmptyLogger, LoggersGroup, MemoryLogger, PrintingLogger
+from emptylog import (
+    EmptyLogger,
+    LoggerProtocol,
+    LoggersGroup,
+    MemoryLogger,
+    PrintingLogger,
+)
 
 
 def test_positive_examples_of_runtime_check():
