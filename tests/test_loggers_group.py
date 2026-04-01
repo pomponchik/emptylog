@@ -21,12 +21,12 @@ def test_len_of_group():
 
 
 @pytest.mark.parametrize(
-    ['wrong_logger', 'exception_message'],
-    (
+    ('wrong_logger', 'exception_message'),
+    [
         (1, 'A logger group can only be created from loggers. You passed 1 (int).'),
         ('kek', 'A logger group can only be created from loggers. You passed \'kek\' (str).'),
         (None, 'A logger group can only be created from loggers. You passed None (NoneType).'),
-    ),
+    ],
 )
 def test_create_group_with_not_loggers(wrong_logger, exception_message):
     with pytest.raises(TypeError, match=match(exception_message)):
@@ -35,14 +35,14 @@ def test_create_group_with_not_loggers(wrong_logger, exception_message):
 
 @pytest.mark.parametrize(
     'get_method',
-    (
+    [
         lambda x: x.debug,
         lambda x: x.info,
         lambda x: x.warning,
         lambda x: x.error,
         lambda x: x.exception,
         lambda x: x.critical,
-    ),
+    ],
 )
 def test_run_group_of_memory_loggers(get_method):
     first_internal_logger = MemoryLogger()
@@ -120,52 +120,52 @@ def test_another_logger_plus_empty_group():
 
 @pytest.mark.parametrize(
     'third_party_logger',
-    (
+    [
         loguru_logger,
         logging,
         logging.getLogger('kek'),
-    ),
+    ],
 )
 def test_empty_group_plus_third_party_logger(third_party_logger):
     first_group = LoggersGroup()
 
-    sum = first_group + third_party_logger
+    result = first_group + third_party_logger
 
-    assert type(sum) is LoggersGroup
-    assert sum is not first_group
-    assert len(sum.loggers) == 1
-    assert len(sum) == 1
-    assert sum.loggers[0] is third_party_logger
+    assert type(result) is LoggersGroup
+    assert result is not first_group
+    assert len(result.loggers) == 1
+    assert len(result) == 1
+    assert result.loggers[0] is third_party_logger
 
 
 @pytest.mark.parametrize(
     'third_party_logger',
-    (
+    [
         loguru_logger,
         logging,
         logging.getLogger('kek'),
-    ),
+    ],
 )
 def test_third_party_logger_plus_empty_group(third_party_logger):
     first_group = LoggersGroup()
 
-    sum = third_party_logger + first_group
+    result = third_party_logger + first_group
 
-    assert type(sum) is LoggersGroup
-    assert sum is not first_group
-    assert len(sum.loggers) == 1
-    assert len(sum) == 1
-    assert sum.loggers[0] is third_party_logger
+    assert type(result) is LoggersGroup
+    assert result is not first_group
+    assert len(result.loggers) == 1
+    assert len(result) == 1
+    assert result.loggers[0] is third_party_logger
 
 
 @pytest.mark.parametrize(
     'loggers',
-    (
+    [
         [loguru_logger, logging, logging.getLogger('kek')],
         [MemoryLogger(), MemoryLogger()],
         [MemoryLogger()],
         [],
-    ),
+    ],
 )
 def test_iteration_by_group(loggers):
     group = LoggersGroup(*loggers)

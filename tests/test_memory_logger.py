@@ -23,7 +23,7 @@ def test_memory_logger_is_working():
 
         assert callable(method)
 
-        for number in range(3):
+        for _ in range(3):
             method(f'kek_{name}', 'lol', 'cheburek', name, pek='mek', kekokek=name)
 
     assert len(logger.data.debug) == 3

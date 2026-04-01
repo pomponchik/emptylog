@@ -11,7 +11,7 @@ class AbstractLogger(LoggerProtocol, ABC):
         if not isinstance(other, LoggerProtocol):
             raise NotImplementedError('The addition operation is defined only for loggers.')
 
-        from emptylog import LoggersGroup
+        from emptylog import LoggersGroup  # noqa: PLC0415
 
         local_loggers = self.loggers if isinstance(self, LoggersGroup) else [self]
         other_loggers = other.loggers if isinstance(other, LoggersGroup) else [other]
@@ -22,7 +22,7 @@ class AbstractLogger(LoggerProtocol, ABC):
         if not isinstance(other, LoggerProtocol):
             raise NotImplementedError('The addition operation is defined only for loggers.')
 
-        from emptylog import LoggersGroup
+        from emptylog import LoggersGroup  # noqa: PLC0415
 
         local_loggers = self.loggers if isinstance(self, LoggersGroup) else [self]
         other_loggers = other.loggers if isinstance(other, LoggersGroup) else [other]
