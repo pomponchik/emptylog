@@ -18,7 +18,7 @@ One of the important problems that it solves is the fact that almost no one test
 Here are some of the features it provides:
 
 - A [universal logger protocol](#universal-logger-protocol) that allows you to replace one logger with another without typing violations. In tests, you can replace the original logger with a [logger that remembers its calls](#memory-logger) to check that logging is correct.
-- An [empty logger]((#empty-logger)) that does nothing when you call it. It is useful for writing library functions where the user can pass their logger, but there is no logging by default.
+- An [empty logger](#empty-logger) that does nothing when you call it. It is useful for writing library functions where the user can pass their logger, but there is no logging by default.
 - A [memory logger](#memory-logger) that remembers all the times it was called. To verify that your code is correctly logged in, pass it a memory logger object instead of the default logger, and then check how it was used.
 - A [printing logger](#printing-logger) is a "toy version" of a real logger that you can use to visualize all logger calls inside your test.
 - All loggers presented in this library can be easily [combined](#summation-of-loggers) using the "+" symbol.
